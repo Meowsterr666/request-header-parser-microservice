@@ -1,5 +1,6 @@
 // index.js
 // where your node app starts
+// Astro: npm run start
 
 // init project
 require('dotenv').config();
@@ -23,6 +24,22 @@ app.get('/', function (req, res) {
 app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
+
+// Task 2:
+// Ref: https://medium.com/@ryan_forrester_/get-ip-address-in-javascript-how-to-guide-13c91383b33f#:~:text=2.%20Server%2DSide%20IP%20Retrieval%20with%20Node.js
+app.get('/api/whoami', function (req, res) {
+  const ip = req.connection.remoteAddress;
+  const lang = req.headers['accept-language'];
+  const software = req.headers['user-agent'];
+  console.log("Step One, Two and Three:", { ipaddress: ip, language: lang, software: software });
+  res.json({ ipaddress: ip, language: lang, software: software });
+});
+
+/* 
+Took out
+req.headers['x-forwarded-for']
+req.headers['forwarded'] ||
+*/
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
